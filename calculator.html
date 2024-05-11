@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center; /* Horizontally center */
+            align-items: center; /* Vertically center */
+            background-color: black; /* Set background to black */
+        }
+        .container {
+            text-align: center;
+            font-family: sans-serif; /* Set font family to sans-serif */
+            padding: 20px;
+            background-color: #333; /* Set box padding color to grey */
+            border-radius: 10px; /* Add border radius for a rounded appearance */
+        }
+        label {
+            font-weight: bold;
+            color: white; /* Set label color to white */
+        }
+        input[type="number"] {
+            width: 100px;
+            padding: 5px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 8px 16px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        #result {
+            margin-top: 20px;
+            color: white; /* Set result color to white */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Calculator</h2>
+        <label for="numbers">Enter numbers separated by commas:</label>
+        <input type="text" id="numbers"><br>
+        <button onclick="calculateAverage()">Calculate Average</button>
+        <button onclick="calculatePrimes()">Primes</button>
+        <button onclick="calculateFibonacci()">Fibonacci</button>
+        <button onclick="calculateEven()">Even Numbers</button>
+        <button onclick="generateRandom()">Random Numbers</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function calculateAverage() {
+            var numbers = document.getElementById('numbers').value.split(',').map(Number);
+            var sum = numbers.reduce((acc, curr) => acc + curr, 0);
+            var average = sum / numbers.length;
+            document.getElementById('result').innerText = "Average: " + average.toFixed(2);
+        }
+
+        function calculatePrimes() {
+            var numbers = document.getElementById('numbers').value.split(',').map(Number);
+            var primes = numbers.filter(isPrime);
+            document.getElementById('result').innerText = "Primes: " + primes.join(', ');
+        }
+
+        function isPrime(num) {
+            if (num <= 1) return false;
+            if (num === 2) return true;
+            for (var i = 2; i <= Math.sqrt(num); i++) {
+                if (num % i === 0) return false;
+            }
+            return true;
+        }
+
+        function calculateFibonacci() {
+            var n = parseInt(prompt("Enter the number of Fibonacci numbers to generate:"));
+            var fib = [0, 1];
+            for (var i = 2; i < n; i++) {
+                fib[i] = fib[i - 1] + fib[i - 2];
+            }
+            document.getElementById('result').innerText = "Fibonacci: " + fib.join(', ');
+        }
+
+        function calculateEven() {
+            var numbers = document.getElementById('numbers').value.split(',').map(Number);
+            var evens = numbers.filter(num => num % 2 === 0);
+            document.getElementById('result').innerText = "Even Numbers: " + evens.join(', ');
+        }
+
+        function generateRandom() {
+            var count = parseInt(prompt("Enter the number of random numbers to generate:"));
+            var min = parseInt(prompt("Enter the minimum value:"));
+            var max = parseInt(prompt("Enter the maximum value:"));
+            var randomNumbers = [];
+            for (var i = 0; i < count; i++) {
+                randomNumbers.push(Math.floor(Math.random() * (max - min + 1)) + min);
+            }
+            document.getElementById('result').innerText = "Random Numbers: " + randomNumbers.join(', ');
+        }
+    </script>
+</body>
+</html>
